@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="ka">
+<head><meta name="referrer" content="no-referrer">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ნესტრა</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{--ui-font:"Noto Sans Georgian";}
+html,body,body *,button,input,select,textarea,option,label,span,div,p,h1,h2,h3,h4,h5,h6,a,strong,small{
+  font-family:var(--ui-font) !important;
+  font-weight:400 !important;
+  font-synthesis:none;
+}
+input,textarea,select,button{font-family:var(--ui-font) !important;}
+
+:root{--bg:#f7f6f9;--surface:#ffffff;--surface2:#fbfafc;--line:#e8e3eb;--text:#2a2430;--muted:#7b7380;--blue:#b090c9;--blueSoft:#f0e9f5;--deepPurple:#66506f;--green:#6f9a82;--red:#c9828d;--yellow:#d7c2e4;--shadow:0 8px 24px rgba(58,44,68,.05)}
+*{box-sizing:border-box}html,body{margin:0;font-family:var(--ui-font) !important;background:var(--bg);color:var(--text)}button,input,select,textarea{font:inherit;color:#1f1f28;caret-color:#1f1f28} input::placeholder,textarea::placeholder{color:#8d8791;opacity:1} select{color:#1f1f28}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.app{display:grid;grid-template-columns:180px 1fr;min-height:100vh}.sidebar{padding:22px 12px 18px;display:flex;flex-direction:column;gap:14px}.brand{display:flex;align-items:center;gap:9px;padding:4px 8px 18px;font-weight:850}.brand-mark{width:19px;height:19px;border-radius:6px;background:#b79acb;box-shadow:0 5px 12px rgba(102,80,111,.16)}.nav{display:flex;flex-direction:column;gap:5px}.nav a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:#4f545c}.nav a:hover{background:#eef1f5}.nav a.active{background:var(--blueSoft);color:var(--blue);font-weight:750}.nav svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}.sidebar-foot{margin-top:auto;padding:10px;color:#6d727b;font-size:13px}.main-wrap{padding:18px 22px 18px 0}.canvas{background:transparent;border-radius:0;padding:10px 20px 24px;min-height:100vh}.view{display:none}.view.active{display:block}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;min-height:36px}.page-title{font-size:18px;font-weight:850}.date-chip,.dropdown{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 11px;color:#555;font-size:13px}.hero{background:linear-gradient(135deg,#faf8fb 0%,#f1ebf5 52%,#f8f5fa 100%);border:0;border-radius:18px;min-height:174px;padding:28px 30px;color:#332b38;position:relative;overflow:hidden;display:flex;align-items:center;box-shadow:0 16px 34px rgba(103,65,128,.10)}.hero:before{content:"";position:absolute;width:310px;height:310px;border-radius:50%;right:8%;top:-170px;background:rgba(255,255,255,.32)}.hero:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:-45px;bottom:-165px;background:rgba(255,255,255,.24)}.hero-content{position:relative;z-index:1;max-width:720px}.hero-kicker{display:inline-block;padding:6px 9px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.55);border-radius:999px;font-size:10px;font-weight:850;letter-spacing:.05em;margin-bottom:12px}.hero h1{font-size:29px;line-height:1.28;margin:0 0 9px;letter-spacing:-.025em}.hero p{font-size:13px;line-height:1.6;margin:0;color:#6f6574;max-width:650px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:15px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 18px;box-shadow:var(--shadow);min-height:122px;display:flex;flex-direction:column;justify-content:space-between;transition:.16s ease;cursor:pointer}.stat-card:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(16,24,40,.07);border-color:#d8ddea}.stat-label{font-size:12px;color:var(--blue);font-weight:800}.stat-value{font-size:26px;font-weight:850;letter-spacing:-.03em;margin-top:8px}.stat-foot{font-size:11px;color:var(--muted);margin-top:7px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.panel,.page-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:19px;box-shadow:var(--shadow)}.panel{min-height:304px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.panel-head h3{font-size:15px;margin:0}.subtle{font-size:11px;color:var(--muted);margin-top:4px}.chart-box{height:238px;position:relative}canvas{width:100%;height:100%;display:block}.goal-dual{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center;min-height:236px;padding:8px 10px 2px}.goal-donut-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;min-width:0}.goal-donut{width:158px;height:158px;border-radius:50%;position:relative;background:conic-gradient(var(--blue) 0 0%,#eee8f0 0 100%)}.goal-donut:after{content:"";position:absolute;inset:25px;border-radius:50%;background:#fff}.goal-center{position:absolute;inset:0;z-index:2;display:grid;place-items:center;text-align:center}.goal-center strong{font-size:25px;letter-spacing:-.03em}.goal-donut-label{font-size:12px;font-weight:800;color:#4b515a;text-align:center}
+/* task pages */
+.progress-banner{display:flex;width:100%;min-height:84px;align-items:center;gap:18px;background:linear-gradient(90deg,#f5f1f7 0%,#eee7f2 100%);border:0;border-radius:13px;padding:17px 20px;margin-bottom:16px;box-shadow:0 10px 24px rgba(122,78,148,.08)}.progress-big{font-size:30px;font-weight:850;color:#745381}.progress-copy{display:grid;gap:2px}.progress-copy strong{font-size:13px;color:#44384b}.progress-copy span{font-size:11px;color:#75677d}.add-row{display:flex;gap:8px;margin-bottom:15px}.add-row input{flex:1}.input,.add-row input,.finance-form input,.finance-form select,.note-composer textarea,.modal input,.modal textarea,.modal select{border:1px solid var(--line);background:#fff;color:#1f1f28;caret-color:#1f1f28;border-radius:9px;padding:10px 11px;outline:none}.plus-btn{width:38px;height:38px;border:0;border-radius:9px;background:var(--blue);color:#fff;font-size:22px;line-height:1;display:grid;place-items:center;font-weight:500}.task-list{display:flex;flex-direction:column;gap:9px}.task{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:12px 13px;background:#fff}.task.done .task-title{text-decoration:line-through;color:#989da6}.task-check{width:17px;height:17px;accent-color:var(--blue)}.task-main{min-width:0}.task-title{font-size:13px;font-weight:700}.icon-btn{border:0;background:#f1f3f7;border-radius:8px;padding:7px 9px;color:#656b74}.empty{padding:16px;border:1px dashed #d8dce3;background:#fafbfc;border-radius:11px;text-align:center;color:var(--muted);font-size:12px}
+/* calendar */
+.calendar-page{padding:15px 17px}.calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}.calendar-month-select{min-width:190px}.weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.weekdays div{text-align:center;color:var(--muted);font-size:10px;font-weight:800;padding:4px 0}.day{height:78px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px;text-align:left;overflow:hidden;color:var(--text);position:relative;transition:.15s ease}.day:hover{background:#f7f9ff;box-shadow:inset 0 0 0 1px #c8d5ff}.day.empty{background:transparent;border-color:transparent;pointer-events:none}.day.today{box-shadow:inset 0 0 0 1px #b8c8ff;border-color:#cbd7ff}.day-num{font-size:16px;line-height:1;font-weight:900;color:#2f3540;margin-bottom:3px}.day.today .day-num{color:var(--blue)}.event-mini{display:flex;align-items:center;gap:4px;border-radius:999px;background:#f5f7fa;padding:3px 5px;font-size:8.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}.calendar-hint{display:inline-flex;align-items:center;gap:7px;background:var(--blueSoft);color:var(--blue);border:1px solid #dce5ff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800}.calendar-hint:before{content:"+";width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-size:13px;line-height:1}.legend-row,.legend-pill{display:none}
+/* notes */
+.notes-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.note-card{border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px;min-height:122px;display:flex;flex-direction:column;gap:9px}.note-card.done{background:#f8faf9}.note-card.done .note-text{text-decoration:line-through;color:#92979f}.note-top{display:flex;justify-content:space-between;gap:8px}.note-check{width:16px;height:16px;accent-color:var(--green)}.note-text{font-size:12px;line-height:1.55;white-space:pre-wrap;word-break:break-word;flex:1}.note-date{font-size:9px;color:var(--muted)}.note-composer{display:none;margin-bottom:13px;border:0;background:transparent;border-radius:0;padding:0}.note-composer.open{display:block}.note-composer textarea{width:100%;min-height:96px;resize:vertical;margin-bottom:8px;display:block;color:var(--text);background:#fff}.note-composer textarea:focus{border-color:#b9c9fa;box-shadow:0 0 0 3px rgba(55,107,243,.08)}.composer-actions{display:flex;justify-content:flex-end;gap:7px}.secondary-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;color:#555;font-weight:700;font-size:11px}.primary-btn{border:0;background:var(--blue);color:#fff;border-radius:8px;padding:8px 11px;font-weight:750;font-size:11px}
+/* finance */
+.finance-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:15px}.finance-kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px;box-shadow:var(--shadow)}.finance-kpi-label{font-size:11px;color:var(--muted);margin-bottom:10px}.finance-kpi-value{font-size:24px;font-weight:850}.finance-kpi-note{font-size:10px;color:var(--muted);margin-top:5px}.finance-grid{display:grid;grid-template-columns:330px 1fr;gap:15px}.finance-form{display:grid;gap:9px}.amount-wrap{position:relative}.amount-wrap span{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted)}.amount-wrap input{width:100%;padding-left:28px}.finance-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.finance-month{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;color:#555;font-size:12px}.finance-list{display:flex;flex-direction:column;gap:8px}.finance-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:11px 12px}.finance-title{font-size:12px;font-weight:750}.finance-meta{font-size:10px;color:var(--muted);margin-top:3px}.finance-amount{font-size:12px;font-weight:850}.finance-amount.income{color:var(--green)}.finance-amount.expense{color:var(--red)}.finance-amount.saving{color:var(--blue)}.compare-panel{margin-top:15px}.compare-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.compare-selects{display:flex;align-items:center;gap:8px}.compare-vs{font-size:10px;color:var(--muted);font-weight:800}.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.compare-card{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fafbfc}.compare-label{font-size:10px;color:var(--muted);margin-bottom:7px}.compare-values{font-size:11px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}.compare-values strong{font-size:14px}.compare-delta{margin-top:7px;font-size:11px;font-weight:850}.good{color:var(--green)}.bad{color:var(--red)}.neutral{color:var(--muted)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(14,20,31,.35);display:none;place-items:center;padding:18px;z-index:50}.modal.open{display:grid}.modal-card{width:min(520px,100%);background:#fff;border-radius:16px;padding:18px;box-shadow:0 25px 70px rgba(16,24,40,.18)}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.modal-form{display:grid;gap:9px}.modal textarea{min-height:85px;resize:vertical}.other-events{margin-top:12px}.other-event{border:1px solid var(--line);background:#fafbfc;border-radius:9px;padding:9px;margin-top:7px;font-size:11px}.other-empty{font-size:11px;color:var(--muted);padding:10px 0}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.sidebar{padding:14px}.nav{flex-direction:row;flex-wrap:wrap}.main-wrap{padding:0}.canvas{border-radius:0;min-height:100vh}.grid2,.finance-grid{grid-template-columns:1fr}.notes-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.grid3,.finance-summary,.compare-grid,.notes-grid{grid-template-columns:1fr}.compare-selects{width:100%}.goal-dual{grid-template-columns:1fr}.weekdays,.calendar-grid{gap:3px}.day{height:64px;padding:5px}.event-mini{font-size:7px}.topbar,.compare-top{align-items:stretch;flex-direction:column}.compare-selects{flex-wrap:wrap}.hero h1{font-size:24px}}
+
+/* Monro-inspired palette refinements */
+.sidebar{background:#f8f5fa;border-right:1px solid #ece5ef}.nav a.active{background:#ece3f1;color:#695174}.nav a:hover{background:#f1eaf5}.brand{color:#1f1f28}.brand-mark{box-shadow:0 5px 14px rgba(174,115,216,.25)}
+.canvas{background:transparent}.date-chip,.dropdown,.panel,.page-card,.stat-card,.finance-kpi{border-color:#e7dfeb}
+.stat-label{color:#73577f}.stat-card:hover{border-color:#cba7e4;box-shadow:0 10px 26px rgba(50,48,73,.09)}
+.plus-btn,.primary-btn{background:#d9c7e3;color:#523f5a;box-shadow:0 5px 14px rgba(130,84,158,.10)}.plus-btn:hover,.primary-btn:hover{background:#cfb8dc;color:#493550;transform:translateY(-1px)}
+.task-check,.note-check{accent-color:#b090c9}.day-num{font-size:11px;font-weight:800;margin-bottom:2px;color:#4d4951}.day.today .day-num{color:#73577f}.day:hover{background:#fbf8fd;box-shadow:inset 0 0 0 1px #cfabe5}.day.today{box-shadow:inset 0 0 0 1px #b985d9;border-color:#d8c8e1}
+.calendar-hint{background:#f2ebf5;color:#745381;border-color:#e0c6f0}.calendar-hint:before{background:#b090c9}
+.note-composer{display:block;background:transparent;border:0;padding:0}.note-composer.open{display:block}.note-composer textarea:focus{border-color:#cba7e4;box-shadow:0 0 0 3px rgba(174,115,216,.1)}
+.yearly-progress{display:flex;width:100%;min-height:84px;align-items:center;padding:17px 20px;background:linear-gradient(90deg,#f5f1f7 0%,#eee7f2 100%);border:0;color:#332b38;box-shadow:0 10px 24px rgba(122,78,148,.08)}
+.yearly-progress .progress-big{color:#745381;font-size:30px}.yearly-progress .progress-copy strong{color:#44384b;font-size:13px}.yearly-progress .progress-copy span{color:#75677d;font-size:11px}.yearly-progress .progress-copy{gap:4px}
+.goal-donut{background:conic-gradient(#b090c9 0 0%,#eee8f0 0 100%)}
+.finance-amount.income{color:#6f9a82}.finance-amount.expense{color:#c9828d}.finance-amount.saving{color:#8d6aa2}
+#financeIncome{color:#6f9a82}#financeExpenses{color:#c9828d}#financeSavings{color:#8d6aa2}
+
+
+/* Final visual polish */
+body{background:var(--bg)}
+.hero{box-shadow:0 14px 32px rgba(104,70,122,.09)}
+.hero:before{background:rgba(255,255,255,.40)}.hero:after{background:rgba(174,115,216,.10)}
+.stat-card,.panel,.page-card,.finance-kpi{box-shadow:0 8px 24px rgba(71,50,83,.045)}
+.stat-card:hover{border-color:#cdb2dc;box-shadow:0 12px 28px rgba(71,50,83,.075)}
+.panel-head h3,.page-title{color:#33293a}
+.progress-banner{background:linear-gradient(135deg,#f6f1f8 0%,#ece3f1 55%,#f6f2f8 100%)}
+.progress-big{color:var(--deepPurple)}
+.goal-donut-label{color:#514458}
+.goal-center strong{color:#3c3142}
+.finance-kpi:nth-child(1){background:linear-gradient(180deg,#ffffff 0%,#f7faf8 100%);border-color:#dce8e0}
+.finance-kpi:nth-child(2){background:linear-gradient(180deg,#ffffff 0%,#fcf7f8 100%);border-color:#ecdde0}
+.finance-kpi:nth-child(3){background:linear-gradient(180deg,#ffffff 0%,#faf8fc 100%);border-color:#e6deea}
+.finance-row{background:#fff}.finance-row:hover{background:#fcfafc}
+.icon-btn{background:#f2edf5;color:#77687f}.icon-btn:hover{background:#ebe3ef;color:#5d4668}
+.secondary-btn{border-color:#e5dfe8;background:#fff;color:#675d6d}.secondary-btn:hover{background:#f8f5fa}
+.date-chip,.dropdown{background:#fff;border-color:#e5dfe7;color:#5f5664}
+.task-check,.note-check{accent-color:var(--blue)}
+.calendar-hint{background:#f2e8f8;color:#6f557b;border-color:#dfc9eb}.calendar-hint:before{background:#a86bd2}
+.event-mini{background:#f3eff6;color:#5b4a64}
+.day.today{border-color:#cdb2dc;box-shadow:inset 0 0 0 1px #cdb2dc}.day.today .day-num{color:#6f557b}
+.day:hover{background:#fcf8fd;box-shadow:inset 0 0 0 1px #d8c1e4}
+.note-card{box-shadow:0 5px 15px rgba(71,50,83,.035)}
+.finance-type-icon,.title-icon{width:28px;height:28px;border-radius:9px;display:inline-grid;place-items:center;background:#f0e9f5;color:#6f557b;flex:0 0 auto}.title-icon svg,.finance-type-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}
+.stat-label{display:flex;align-items:center;gap:8px}.stat-label .title-icon{width:26px;height:26px;border-radius:8px}
+.panel-head h3{display:flex;align-items:center;gap:8px}
+.primary-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.primary-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+@media(max-width:1100px){.main-wrap{padding:0}.canvas{padding:14px}}
+
+.page-title .title-icon{width:30px;height:30px;background:#ece3f1;color:#695174}.page-title .title-icon svg{width:16px;height:16px}
+
+/* Dashboard cleanup + refined palette */
+#view-dashboard .hero,#view-dashboard .stat-card,#view-dashboard .panel{border:0!important;}
+#view-dashboard .stat-card,#view-dashboard .panel{box-shadow:0 8px 24px rgba(61,48,69,.045);}
+#view-dashboard .stat-card:hover{border:0!important;box-shadow:0 12px 28px rgba(61,48,69,.065);}
+#view-dashboard .panel-head h3{color:#3a313f;}
+#view-dashboard .goal-donut-label{color:#5a4f5f;}
+.sidebar{background:#faf9fb;border-right:1px solid #eee8f0;}
+.nav a.active{background:#eee8f2;color:#66506f;}
+.nav a:hover{background:#f4f0f6;}
+.brand-mark{background:#ad8fc2;box-shadow:0 5px 14px rgba(102,80,111,.14);}
+.calendar-hint{background:#f1ebf4;color:#66506f;border-color:#e4dbe8}.calendar-hint:before{background:#b090c9}
+.finance-amount.income{color:#6f9a82}.finance-amount.expense{color:#c9828d}.finance-amount.saving{color:#8d6aa2}
+#financeIncome{color:#6f9a82}#financeExpenses{color:#c9828d}#financeSavings{color:#8d6aa2}
+
+
+/* Cohesive lavender-neutral palette + Noto Sans Georgian */
+html,body,button,input,select,textarea{font-family:var(--ui-font) !important;}
+body{background:#f7f6f9;color:#2a2430;}
+.sidebar{background:#fbfafc;border-right:1px solid #ece7ef;}
+.brand-mark{background:#ad8fc2;box-shadow:0 5px 14px rgba(102,80,111,.14);}
+.nav a{color:#5b5460}.nav a:hover{background:#f4f0f6}.nav a.active{background:#efe8f4;color:#66506f;}
+.hero{background:linear-gradient(135deg,#faf8fb 0%,#f1ebf5 52%,#f8f5fa 100%);color:#332b38;box-shadow:0 14px 32px rgba(73,57,83,.07)}
+.hero p{color:#6f6574}.hero-kicker{background:rgba(255,255,255,.66);border-color:rgba(102,80,111,.08);color:#66506f}
+.stat-label{color:#785d87}.stat-card,.panel,.page-card,.finance-kpi{box-shadow:0 8px 24px rgba(58,44,68,.045)}
+.primary-btn,.plus-btn{background:#c2a9d3!important;color:#2f2734!important;box-shadow:none!important}.primary-btn:hover,.plus-btn:hover{background:#b69acb!important}
+.progress-banner{background:linear-gradient(90deg,#f6f2f8 0%,#eee8f2 100%);box-shadow:0 10px 24px rgba(73,57,83,.055)}
+.progress-big{color:#6f557b}.progress-copy strong{color:#403647}.progress-copy span{color:#756c7a}
+.task-check,.note-check{accent-color:#a786bd}.calendar-hint{background:#f1ebf4;color:#66506f;border-color:#e4dbe8}.calendar-hint:before{background:#a786bd}
+.day.today{border-color:#d7c8df;box-shadow:inset 0 0 0 1px #d7c8df}.day.today .day-num{color:#6f557b}.day:hover{background:#fcfafc;box-shadow:inset 0 0 0 1px #dfd4e5}
+.goal-donut-label{color:#55495d}.goal-center strong{color:#382f3e}
+.finance-kpi{background:#fff!important;border-color:#e8e3eb!important}.finance-kpi:nth-child(1),.finance-kpi:nth-child(2),.finance-kpi:nth-child(3){background:#fff!important}
+.finance-amount.income,#financeIncome{color:#6f9a82}.finance-amount.expense,#financeExpenses{color:#c9828d}.finance-amount.saving,#financeSavings{color:#8d6aa2}
+.finance-type-icon,.title-icon{background:#f0e9f5;color:#66506f}.icon-btn{background:#f3eff6;color:#6b5d73}.icon-btn:hover{background:#ebe3ef;color:#5c4965}
+.secondary-btn{border-color:#e6e0e9;background:#fff;color:#625a67}.secondary-btn:hover{background:#f8f5fa}
+.date-chip,.dropdown{background:#fff;border-color:#e6e0e9;color:#5f5863}
+
+/* Noto Sans Georgian is a Regular-only Georgian typeface: force it consistently on every UI text element. */
+html, body, body *, body *::before, body *::after,
+button, input, textarea, select, option, label, a, span, div, p,
+h1, h2, h3, h4, h5, h6, strong, b, small {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+  font-weight: 400 !important;
+  font-synthesis: none !important;
+}
+input::placeholder, textarea::placeholder {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+  font-weight: 400 !important;
+}
+strong,b,h1,h2,h3,h4,h5,h6,.brand,.page-title,.stat-value,.progress-big,.task-title,.finance-amount,.goal-center strong {
+  font-weight: 400 !important;
+}
+
+/* Exact uploaded Geo Dedaena font — embedded in this HTML. */
+html, body, body *, button, input, select, textarea, option, label, span, div, p, h1, h2, h3, h4, h5, h6, a, strong, b, small {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+  font-weight: 400 !important;
+  font-synthesis: none !important;
+}
+input::placeholder, textarea::placeholder {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+  font-weight: 400 !important;
+}
+
+
+/* Headline emphasis: keep Geo Dedaena, synthesize bold only for headings */
+h1,h2,h3,h4,h5,h6,.page-title,.brand,.hero h1,.panel-head h3,.progress-copy strong,.task-title,.finance-title,.finance-kpi-value,.stat-value,.goal-center strong,.goal-donut-label{
+  font-family:"Noto Sans Georgian","Noto Sans Georgian",sans-serif !important;
+  font-weight:700 !important;
+  font-synthesis:weight !important;
+}
+.hero h1{font-weight:800 !important;}
+
+/* FINAL FONT OVERRIDE — uploaded Geo Dedaena Regular embedded above */
+html, body, body *, body *::before, body *::after,
+button, input, select, textarea, option, label, a, span, div, p,
+h1, h2, h3, h4, h5, h6, strong, b, small {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+}
+input::placeholder, textarea::placeholder {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+}
+
+/* FINAL FONT OVERRIDE — uploaded Geo Dedaena Regular embedded above */
+html, body, body *, body *::before, body *::after,
+button, input, select, textarea, option, label, a, span, div, p,
+h1, h2, h3, h4, h5, h6, strong, b, small {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+}
+input::placeholder, textarea::placeholder {
+  font-family: "Noto Sans Georgian", sans-serif !important;
+}
+
+/* FINAL TYPOGRAPHY — clean Georgian UI font */
+:root{--ui-font:"Noto Sans Georgian",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+html,body,body *,body *::before,body *::after,button,input,select,textarea,option,label,a,span,div,p,h1,h2,h3,h4,h5,h6,strong,b,small{
+  font-family:var(--ui-font) !important;
+  font-synthesis:none !important;
+}
+input::placeholder,textarea::placeholder{font-family:var(--ui-font) !important;}
+body,button,input,select,textarea,option,label,a,span,div,p,small{font-weight:400 !important;}
+.brand,.page-title,.hero h1,.panel-head h3,.progress-copy strong,.task-title,.finance-title,.finance-kpi-value,.stat-value,.goal-center strong,.goal-donut-label,h1,h2,h3,h4,h5,h6,strong,b{font-weight:700 !important;}
+.hero h1{font-weight:800 !important;}
+
+
+/* PERSONAL PLANNER REFINEMENT — cohesive pastel palette + subtle motion */
+:root{
+  --bg:#F8F7FA;
+  --surface:#FFFFFF;
+  --surface2:#FCFBFD;
+  --line:#E9E3EC;
+  --text:#2B2630;
+  --muted:#7D7581;
+  --blue:#C8B4D8;          /* light lavender */
+  --blueSoft:#F2ECF5;
+  --deepPurple:#6F5A78;    /* deeper dusty neutral purple */
+  --green:#8FAE9C;         /* pastel sage */
+  --red:#CFA0A6;           /* pastel dusty rose */
+  --yellow:#D8CAE1;
+  --shadow:0 8px 24px rgba(73,57,83,.045);
+  --shadowHover:0 14px 30px rgba(73,57,83,.085);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text)}
+.sidebar{background:#FBFAFC;border-right:1px solid var(--line)}
+.brand-mark{background:var(--deepPurple);box-shadow:0 5px 14px rgba(111,90,120,.20)}
+.nav a{color:#5E5762;transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease)}
+.nav a:hover{background:var(--blueSoft);transform:translateX(2px)}
+.nav a.active{background:#EEE7F2;color:var(--deepPurple)}
+.nav svg{transition:transform .18s var(--ease)}
+.nav a:hover svg{transform:scale(1.06)}
+.hero{background:linear-gradient(135deg,rgba(200,180,216,.30) 0%,rgba(111,90,120,.17) 100%),#FCFAFD;box-shadow:0 14px 32px rgba(78,61,87,.08)}
+.hero:after{background:rgba(111,90,120,.13)}
+.hero-kicker{color:var(--deepPurple);border-color:rgba(111,90,120,.16)}
+.stat-label,.progress-big{color:var(--deepPurple)}
+.primary-btn,.plus-btn{background:var(--blue)!important;color:#3B3041!important}
+.primary-btn:hover,.plus-btn:hover{background:var(--deepPurple)!important;color:#fff!important}
+.title-icon,.finance-type-icon{background:var(--blueSoft);color:var(--deepPurple)}
+.page-title .title-icon{background:#EEE7F2;color:var(--deepPurple)}
+.task-check,.note-check{accent-color:var(--deepPurple)}
+.calendar-hint{background:var(--blueSoft);color:var(--deepPurple);border-color:#E2D8E7}
+.calendar-hint:before{background:var(--deepPurple)}
+.event-mini{background:#F3EEF6;color:#625469}
+.day.today{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.day.today .day-num{color:var(--deepPurple)}
+.day:hover{background:#FCFAFD;box-shadow:inset 0 0 0 1px #DACCE2}
+.progress-banner,.yearly-progress{background:linear-gradient(100deg,rgba(200,180,216,.30) 0%,rgba(111,90,120,.16) 100%),#F7F3F9;box-shadow:0 10px 24px rgba(78,61,87,.06)}
+.goal-donut{background:conic-gradient(var(--blue) 0 0%,#EEE8F0 0 100%)}
+.finance-amount.income,#financeIncome,.good{color:var(--green)!important}
+.finance-amount.expense,#financeExpenses,.bad{color:var(--red)!important}
+.finance-amount.saving,#financeSavings{color:var(--deepPurple)!important}
+.finance-kpi-label .finance-type-icon[style*="#edf4ef"]{background:#EFF4F0!important;color:var(--green)!important}
+.finance-kpi-label .finance-type-icon[style*="#f8eef0"]{background:#F8EFF0!important;color:var(--red)!important}
+.finance-kpi-label .finance-type-icon:not([style]){background:var(--blueSoft)!important;color:var(--deepPurple)!important}
+.date-chip,.dropdown,.input,.add-row input,.finance-form input,.finance-form select,.note-composer textarea,.modal input,.modal textarea,.modal select{border-color:var(--line)}
+input:focus,textarea:focus,select:focus{border-color:var(--blue)!important;box-shadow:0 0 0 3px rgba(200,180,216,.18)!important}
+
+/* period archive controls */
+.period-select{min-width:130px;background:linear-gradient(135deg,rgba(200,180,216,.16),rgba(111,90,120,.08)),#fff;border-color:#DED4E3!important;color:var(--deepPurple)!important}
+.period-select:hover{border-color:#CDBED5!important}
+.period-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.period-controls .year-select{min-width:102px}
+.period-controls .month-select{min-width:128px}
+.compare-period{display:flex;align-items:center;gap:6px;padding:3px;border-radius:10px;background:rgba(200,180,216,.08)}
+.archive-note{font-size:10px;color:var(--muted);margin-top:7px}
+.primary-btn,.plus-btn{background:linear-gradient(135deg,var(--blue) 0%,#B69FC8 100%)!important}
+.primary-btn:hover,.plus-btn:hover{background:linear-gradient(135deg,#8C7399 0%,var(--deepPurple) 100%)!important;color:#fff!important}
+
+/* restrained motion */
+.view.active{animation:viewIn .28s var(--ease) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.stat-card,.panel,.page-card,.finance-kpi,.task,.note-card,.finance-row,.compare-card,.day{
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease),background-color .18s var(--ease);
+}
+.stat-card:hover,.panel:hover,.finance-kpi:hover{transform:translateY(-2px);box-shadow:var(--shadowHover)}
+.task:hover,.note-card:hover,.finance-row:hover,.compare-card:hover{transform:translateY(-1px);border-color:#DED3E4}
+button,.icon-btn,.primary-btn,.plus-btn{transition:transform .15s var(--ease),background-color .18s var(--ease),color .18s var(--ease),box-shadow .18s var(--ease)}
+button:active,.icon-btn:active,.primary-btn:active,.plus-btn:active{transform:scale(.975)}
+.goal-donut{transition:transform .2s var(--ease),filter .2s var(--ease)}
+.goal-donut-card:hover .goal-donut{transform:scale(1.018);filter:drop-shadow(0 8px 16px rgba(103,82,117,.08))}
+.modal{display:grid!important;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s var(--ease),visibility .2s var(--ease)}
+.modal.open{opacity:1;visibility:visible;pointer-events:auto}
+.modal-card{transform:translateY(8px) scale(.99);opacity:0;transition:transform .22s var(--ease),opacity .22s var(--ease)}
+.modal.open .modal-card{transform:translateY(0) scale(1);opacity:1}
+
+/* local persistence + backup controls */
+.sidebar-foot{display:grid;gap:8px}
+.storage-status{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted)}
+.storage-dot{width:7px;height:7px;border-radius:999px;background:var(--green);box-shadow:0 0 0 3px rgba(143,174,156,.12)}
+.storage-status.error .storage-dot{background:var(--red);box-shadow:0 0 0 3px rgba(207,160,166,.12)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+
+/* Compact period picker + simplified finance entry */
+.period-controls{display:inline-flex;align-items:center;gap:7px;width:auto!important;flex:0 0 auto}
+.period-month-input{width:164px!important;min-width:164px!important;max-width:164px!important;flex:0 0 164px!important;padding:8px 9px!important;font-size:12px!important;color:var(--text)!important;background:#fff!important}
+.compare-period{display:inline-flex;align-items:center;width:auto!important}
+.compare-period .period-month-input{width:154px!important;min-width:154px!important;max-width:154px!important;flex-basis:154px!important}
+.finance-form input,.finance-form select{font-size:13px}
+.finance-form input::placeholder{font-size:13px;color:#756c7a;opacity:1}
+.finance-title-input::placeholder{font-size:14px!important;color:#5f5664!important}
+@media(max-width:700px){.period-controls{width:auto!important;align-self:flex-start}.period-month-input{width:158px!important;min-width:158px!important;max-width:158px!important;flex:0 0 158px!important}.compare-period{width:auto!important}.compare-selects{align-items:center}.compare-period .period-month-input{width:146px!important;min-width:146px!important;max-width:146px!important;flex-basis:146px!important}}
+
+/* Compact custom calendar pickers */
+.period-month-input[readonly],#financeDate[readonly]{cursor:pointer;caret-color:transparent;user-select:none}
+.period-month-input[readonly]:hover,#financeDate[readonly]:hover{border-color:#CDBED5!important;background:linear-gradient(135deg,rgba(200,180,216,.10),rgba(111,90,120,.05)),#fff!important}
+.mini-picker{position:fixed;z-index:120;width:286px;background:#fff;border:1px solid #DED4E3;border-radius:15px;box-shadow:0 18px 50px rgba(73,57,83,.18);padding:12px;display:none;animation:pickerIn .14s ease both}
+.mini-picker.open{display:block}
+@keyframes pickerIn{from{opacity:0;transform:translateY(-4px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.mini-picker-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.mini-picker-year{border:1px solid #E5DCE9;background:#FAF8FB;color:#4F4554;border-radius:9px;padding:7px 9px;font-size:12px;outline:none}
+.mini-picker-close{width:30px;height:30px;border:0;border-radius:8px;background:#F3EEF5;color:#6F5A78;font-size:16px;display:grid;place-items:center}
+.mini-picker-title{font-size:12px;font-weight:700;color:#4A404E}
+.mini-month-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.mini-month{border:1px solid transparent;background:#F8F5FA;border-radius:9px;padding:8px 5px;font-size:10.5px;color:#5F5664;transition:.14s ease}
+.mini-month:hover:not(:disabled){background:#EFE8F3;border-color:#DCCFE3;color:#5C4965;transform:translateY(-1px)}
+.mini-month.active{background:linear-gradient(135deg,#C8B4D8,#6F5A78);color:#fff;border-color:transparent}
+.mini-month:disabled{opacity:.32;cursor:not-allowed}
+.mini-days-wrap{margin-top:10px;padding-top:10px;border-top:1px solid #EEE8F0}
+.mini-weekdays,.mini-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.mini-weekdays span{text-align:center;font-size:8px;color:#908794;padding:2px 0}
+.mini-day{height:30px;border:0;border-radius:8px;background:transparent;font-size:10px;color:#514957;display:grid;place-items:center}
+.mini-day:hover:not(:disabled){background:#EFE8F3;color:#5C4965}
+.mini-day.today{box-shadow:inset 0 0 0 1px #C8B4D8}
+.mini-day.selected{background:#6F5A78;color:#fff}
+.mini-day:disabled{opacity:.22;cursor:not-allowed}
+.mini-day.blank{visibility:hidden}
+@media(max-width:700px){.mini-picker{width:min(286px,calc(100vw - 24px));}}
+
+</style>
+</head>
+<body><div id="cloudGate" style="position:fixed;inset:0;z-index:99999;background:#FAFAFA;color:#3A1B69;display:grid;place-items:center;padding:40px;text-align:center">მონაცემები იტვირთება cloud-დან…</div><button id="cloudRetry" hidden style="position:fixed;bottom:20px;right:20px;z-index:9999" onclick="writeFailed=false;this.hidden=true;flushWrites()">შენახვის ხელახლა ცდა</button>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><span class="brand-mark"></span><span>ნესტრა</span></div>
+  <nav class="nav" id="nav">
+    <a href="#" data-view="dashboard" class="active"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"></rect><path d="M4 10h16"></path></svg>მთავარი</a>
+    <a href="#" data-view="todo"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"></path><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>დღიური საქმეები</a>
+    <a href="#" data-view="calendar"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>კალენდარი</a>
+    <a href="#" data-view="notes"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14l4-3h10a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6"></path></svg>ნოუთები</a>
+    <a href="#" data-view="finance"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M16 10h3v5h-3a2.5 2.5 0 0 1 0-5z"></path></svg>ფინანსები</a>
+    <a href="#" data-view="monthly"><svg viewBox="0 0 24 24"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-6"></path></svg>თვიური მიზნები</a>
+    <a href="#" data-view="yearly"><svg viewBox="0 0 24 24"><path d="m12 17.75-6.172 3.245L7.007 14 2 9.255l6.914-1.005L12 2l3.086 6.25L22 9.255 16.993 14l1.179 7z"></path></svg>წლიური მიზნები</a>
+  </nav>
+  <div class="sidebar-foot">
+    <div>ნესტრა · პირადი პლანერი</div>
+    <div class="storage-status" id="storageStatus"><span class="storage-dot"></span><span id="storageStatusText">ავტომატურად ინახება</span></div>
+  </div>
+</aside>
+<div class="main-wrap"><main class="canvas">
+<section id="view-dashboard" class="view active">
+  <div class="topbar"><div></div><div class="date-chip" id="dashboardMonthLabel">მიმდინარე თვე</div></div>
+  <div class="hero"><div class="hero-content"><div class="hero-kicker">დღის მიმართულება</div><h1>მცირე, გააზრებული ნაბიჯები ყველაზე დიდ შედეგებს ქმნის.</h1><p>შეინარჩუნე ფოკუსი მთავარზე, მონიშნე დასრულებული საქმეები და დაინახე როგორ გროვდება პროგრესი ყოველდღიურად.</p></div></div>
+  <div class="grid3">
+    <div class="stat-card" data-summary="todo" onclick="showView('todo')"><div class="stat-label"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"></path><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg></span>დღიური საქმეები</div><div class="stat-value" data-percent>0%</div><div class="stat-foot" data-count>0 / 0 შესრულებულია</div></div>
+    <div class="stat-card" data-summary="monthly" onclick="showView('monthly')"><div class="stat-label"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"></path></svg></span>თვიური მიზნები</div><div class="stat-value" data-percent>0%</div><div class="stat-foot" data-count>0 / 0 შესრულებულია</div></div>
+    <div class="stat-card" data-summary="yearly" onclick="showView('yearly')"><div class="stat-label"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span>წლიური მიზნები</div><div class="stat-value" data-percent>0%</div><div class="stat-foot" data-count>0 / 0 შესრულებულია</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><div class="panel-head"><div><h3>თვიური ფინანსების მიმოხილვა</h3></div><div class="period-controls"><input class="dropdown period-month-input" id="dashboardFinancePeriod" type="text" readonly data-picker="month" onchange="changeDashboardFinancePeriod()"></div></div><div class="chart-box"><canvas id="financeChart"></canvas></div></div>
+    <div class="panel"><div class="panel-head"><div><h3>მიზნების მიმოხილვა</h3></div></div><div class="goal-dual"><div class="goal-donut-card"><div class="goal-donut" id="yearlyGoalDonut"><div class="goal-center"><strong id="yearlyGoalPct">0%</strong></div></div><div class="goal-donut-label">წლიური მიზნები</div></div><div class="goal-donut-card"><div class="goal-donut" id="dailyGoalDonut"><div class="goal-center"><strong id="dailyGoalPct">0%</strong></div></div><div class="goal-donut-label">დღიური საქმეები</div></div></div></div>
+  </div>
+</section>
+
+<section id="view-todo" class="view">
+  <div class="topbar"><div class="page-title" style="display:flex;align-items:center;gap:9px"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"></path><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg></span>დღიური საქმეები</div></div>
+  <div class="page-card"><div class="progress-banner"><div class="progress-big" id="todoPct">0%</div><div class="progress-copy"><strong id="todoCount">0 / 0 შესრულებულია</strong><span>დღიური პროგრესი</span></div></div><div class="add-row"><input id="todoInput" placeholder="ახალი საქმის დამატება…"><button class="plus-btn" title="დამატება" onclick="addTask('todo')">+</button></div><div id="todoList" class="task-list"></div></div>
+</section>
+
+<section id="view-monthly" class="view">
+  <div class="topbar"><div class="page-title" style="display:flex;align-items:center;gap:9px"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"></path></svg></span>თვიური მიზნები</div><div class="period-controls"><input id="monthlyPeriod" class="dropdown period-month-input" type="text" readonly data-picker="month" onchange="changeMonthlyPeriod()"></div></div>
+  <div class="page-card"><div class="progress-banner"><div class="progress-big" id="monthlyPct">0%</div><div class="progress-copy"><strong id="monthlyCount">0 / 0 შესრულებულია</strong><span id="monthlyProgressLabel">თვიური პროგრესი</span></div></div><div class="add-row"><input id="monthlyInput" placeholder="ახალი თვიური მიზნის დამატება…"><button class="plus-btn" title="დამატება" onclick="addTask('monthly')">+</button></div><div id="monthlyList" class="task-list"></div></div>
+</section>
+
+<section id="view-yearly" class="view">
+  <div class="topbar"><div class="page-title" style="display:flex;align-items:center;gap:9px"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span>წლიური მიზნები</div><select id="yearlyPeriod" class="dropdown period-select" onchange="setYearlyPeriod(this.value)"></select></div>
+  <div class="page-card"><div class="progress-banner yearly-progress"><div class="progress-big" id="yearlyPct">0%</div><div class="progress-copy"><strong id="yearlyCount">0 / 0 შესრულებულია</strong><span id="yearlyProgressLabel">წლიური პროგრესი</span></div></div><div class="add-row"><input id="yearlyInput" placeholder="ახალი წლიური მიზნის დამატება…"><button class="plus-btn" title="დამატება" onclick="addTask('yearly')">+</button></div><div id="yearlyList" class="task-list"></div></div>
+</section>
+
+<section id="view-calendar" class="view">
+  <div class="topbar"><div class="page-title" style="display:flex;align-items:center;gap:9px"><span class="title-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg></span>კალენდარი</div></div>
+  <div class="page-card calendar-page"><div class="calendar-toolbar"><div class="period-controls"><input id="calendarPeriod" class="dropdown period-month-input" type="text" readonly data-picker="month" onchange="changeCalendarPeriod()"></div><div class="calendar-hint">დღეზე დაჭერით დაამატე ივენთი</div></div><div class="weekdays"><div>ორშ</div><div>სამ</div><div>ოთხ</div><div>ხუთ</div><div>პარ</div><div>შაბ</div><div>კვი</div></div><div class="calendar-grid" id="calendarGrid"></div></div>
+</section>
+
+<section id="view-notes" class="view">
+  <div class="topbar"><div class="page-title" style="display:flex;align-items:center;gap:9px"><span class="title-icon"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14l4-3h10a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6"></path></svg></span>ნოუთების გვერდი</div></div>
+  <div class="page-card"><div class="note-composer open" id="noteComposer"><textarea id="noteText" placeholder="ჩაწერე ახალი ნოუთი…"></textarea><div class="composer-actions"><button type="button" class="primary-btn" onclick="addNote()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>ნოუთის დამატება</button></div></div><div class="notes-grid" id="notesGrid"></div></div>
+</section>
+
+<section id="view-finance" class="view">
+  <div class="topbar"><div class="page-title" style="display:flex;align-items:center;gap:9px"><span class="title-icon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M16 10h3v5h-3a2.5 2.5 0 0 1 0-5z"></path></svg></span>პირადი ფინანსები</div><div class="period-controls"><input id="financePeriod" class="dropdown period-month-input" type="text" readonly data-picker="month" onchange="changeFinancePeriod()"></div></div>
+  <div class="finance-summary"><div class="finance-kpi"><div class="finance-kpi-label" style="display:flex;align-items:center;gap:8px"><span class="finance-type-icon" style="background:#edf4ef;color:#6f9a82"><svg viewBox="0 0 24 24"><path d="M12 19V5M7 10l5-5 5 5"></path></svg></span>შემოსავლები</div><div class="finance-kpi-value" id="financeIncome">0ლ</div><div class="finance-kpi-note">არჩეული თვე</div></div><div class="finance-kpi"><div class="finance-kpi-label" style="display:flex;align-items:center;gap:8px"><span class="finance-type-icon" style="background:#f8eef0;color:#c9828d"><svg viewBox="0 0 24 24"><path d="M12 5v14M7 14l5 5 5-5"></path></svg></span>ხარჯები</div><div class="finance-kpi-value" id="financeExpenses">0ლ</div><div class="finance-kpi-note">არჩეული თვე</div></div><div class="finance-kpi"><div class="finance-kpi-label" style="display:flex;align-items:center;gap:8px"><span class="finance-type-icon"><svg viewBox="0 0 24 24"><path d="M5 9h14v10H5z"></path><path d="M8 9V6h8v3M8 13h8"></path></svg></span>დანაზოგი</div><div class="finance-kpi-value" id="financeSavings">0ლ</div><div class="finance-kpi-note" id="financeSavingsRate">შემოსავლის 0%</div></div></div>
+  <div class="finance-grid"><div class="page-card"><div class="panel-head"><h3>ახალი ფინანსური ჩანაწერი *</h3></div><div class="finance-form"><select id="financeType"><option value="expense">ხარჯი</option><option value="income">შემოსავალი</option><option value="saving">დანაზოგი</option></select><input id="financeDate" type="text" readonly data-picker="date" autocomplete="off" placeholder="თარიღი"><div class="amount-wrap"><span>₾</span><input id="financeAmount" type="number" min="0" step="0.01" placeholder="თანხა"></div><input id="financeTitle" class="finance-title-input" placeholder="დასახელება"><button class="primary-btn" style="padding:10px" onclick="addFinanceEntry()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>დამატება</button></div></div><div class="page-card"><div class="finance-toolbar"><div><strong style="font-size:13px">თვიური ჩანაწერები</strong></div></div><div class="finance-list" id="financeList"></div></div></div>
+  <div class="page-card compare-panel"><div class="compare-top"><div><h3 style="font-size:15px;margin:0">თვეების შედარება</h3><div class="subtle">აირჩიე ორი თვე და ნახე სხვაობა</div></div><div class="compare-selects"><div class="compare-period"><input id="comparePeriodA" class="dropdown period-month-input" type="text" readonly data-picker="month" onchange="changeComparePeriod('A')"></div><span class="compare-vs">VS</span><div class="compare-period"><input id="comparePeriodB" class="dropdown period-month-input" type="text" readonly data-picker="month" onchange="changeComparePeriod('B')"></div></div></div><div class="compare-grid"><div class="compare-card"><div class="compare-label">შემოსავალი</div><div class="compare-values"><strong id="compareIncomeA">0ლ</strong><span>→</span><strong id="compareIncomeB">0ლ</strong></div><div id="compareIncomeDelta" class="compare-delta neutral">0%</div></div><div class="compare-card"><div class="compare-label">ხარჯები</div><div class="compare-values"><strong id="compareExpenseA">0ლ</strong><span>→</span><strong id="compareExpenseB">0ლ</strong></div><div id="compareExpenseDelta" class="compare-delta neutral">0%</div></div><div class="compare-card"><div class="compare-label">დანაზოგი</div><div class="compare-values"><strong id="compareSavingA">0ლ</strong><span>→</span><strong id="compareSavingB">0ლ</strong></div><div id="compareSavingDelta" class="compare-delta neutral">0%</div></div></div></div>
+</section>
+</main></div>
+</div>
+
+<div class="modal" id="eventModal" onclick="if(event.target===this)closeEventModal()"><div class="modal-card"><div class="modal-head"><div><strong>ივენთის დამატება</strong><div class="subtle" id="eventModalDateLabel"></div></div><button class="icon-btn" onclick="closeEventModal()">✕</button></div><div class="modal-form"><input id="eventTitle" placeholder="ივენთის სათაური"><textarea id="eventNote" placeholder="დამატებითი შენიშვნა"></textarea><button class="primary-btn" style="padding:10px" onclick="saveEvent()">შენახვა</button></div><div class="other-events" id="otherEvents"></div></div></div>
+
+
+<div class="mini-picker" id="miniPicker" aria-hidden="true">
+  <div class="mini-picker-head">
+    <div class="mini-picker-title" id="miniPickerTitle">აირჩიე პერიოდი</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <select class="mini-picker-year" id="miniPickerYear" aria-label="წელი"></select>
+      <button type="button" class="mini-picker-close" id="miniPickerClose" aria-label="დახურვა">✕</button>
+    </div>
+  </div>
+  <div class="mini-month-grid" id="miniMonthGrid"></div>
+  <div class="mini-days-wrap" id="miniDaysWrap" style="display:none">
+    <div class="mini-weekdays"><span>ორშ</span><span>სამ</span><span>ოთხ</span><span>ხუთ</span><span>პარ</span><span>შაბ</span><span>კვი</span></div>
+    <div class="mini-days" id="miniDays"></div>
+  </div>
+</div>
+
+<script>
+const STORE={
+  todo:'nestra_todo_daily_v2',monthly:'nestra_monthly_periods_v2',yearly:'nestra_yearly_periods_v2',
+  todoLegacy:'nestra_todo',monthlyLegacy:'nestra_monthly',yearlyLegacy:'nestra_yearly',
+  events:'nestra_events',cats:'nestra_categories',finances:'nestra_finances_v3',notes:'nestra_note_cards_v1',legacyNotes:'nestra_notes'
+};
+const MONTHS=['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'];
+const PLANNER_START_YEAR=2026;
+const PLANNER_START_MONTH=10;
+const PLANNER_START_KEY='2026-10';
+const STORAGE_META='nestra_storage_meta_v2';
+const BACKUP_VERSION=2;
+let financeCache=[];
+let calCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+let selectedEventDate='';
+let storageOK=true;
+let selectedMonthlyPeriod=monthKey();
+let selectedYearlyPeriod=currentYearKey();
+
+// Only RAM holds the current view. All durable writes go to Supabase.
+let cloudData={}, cloudRevision=0, cloudReady=false, cloudNow=0, clockStarted=0;
+let pendingWrites=[], sending=false, writeFailed=false;
+const API_URL='https://YOUR_PROJECT_REF.supabase.co/functions/v1/nestra-api';
+const privateToken=new URLSearchParams(location.hash.slice(1)).get('key')||'';
+function storageAvailable(){return cloudReady}
+function setStorageStatus(ok,message){storageOK=ok;const box=document.getElementById('storageStatus'),txt=document.getElementById('storageStatusText');if(box)box.classList.toggle('error',!ok);if(txt)txt.textContent=message||(ok?'cloud-ში შენახულია':'შენახვა ვერ მოხერხდა')}
+function hasStoredKey(key){return Object.hasOwn(cloudData,key)}
+function load(key,fallback){return structuredClone(Object.hasOwn(cloudData,key)?cloudData[key]:fallback)}
+function save(key,val){if(!cloudReady)return false;cloudData[key]=structuredClone(val);pendingWrites.push({key,value:structuredClone(val)});setStorageStatus(false,'ინახება cloud-ში…');flushWrites();return true}
+async function api(body){const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Nestra-Key':privateToken},body:JSON.stringify(body),cache:'no-store'});const data=await r.json();if(!r.ok)throw new Error(data.error||'Cloud error');return data}
+async function flushWrites(){if(sending||writeFailed||!pendingWrites.length)return;sending=true;
+try{while(pendingWrites.length){const job=pendingWrites[0];const result=await api({action:'write',revision:cloudRevision,...job});cloudRevision=result.revision;pendingWrites.shift()}setStorageStatus(true,'cloud-ში შენახულია')}
+catch(e){writeFailed=true;setStorageStatus(false,'არ შენახულა — შეამოწმე ინტერნეტი / სხვა ჩანართი. დააჭირე ხელახლა ცდას.');document.getElementById('cloudRetry').hidden=false}
+finally{sending=false}}
+function cloudDate(){return new Date(cloudNow+performance.now()-clockStarted)}
+async function startCloud(){if(API_URL.includes('YOUR_PROJECT_REF'))throw new Error('ჯერ დააკავშირე Supabase — იხილე ინსტრუქცია.');if(!privateToken)throw new Error('გახსენი შენი პირადი ბმული, რომელიც მთავრდება #key=საიდუმლო_ტოკენი');const r=await api({action:'read'});cloudData=r.data;cloudRevision=r.revision;cloudNow=Date.parse(r.now);clockStarted=performance.now();cloudReady=true}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+function pct(items){return items.length?Math.round(items.filter(x=>x.done).length/items.length*100):0}
+function doneCount(items){return items.filter(x=>x.done).length}
+function currentDateISO(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tbilisi',year:'numeric',month:'2-digit',day:'2-digit'}).format(cloudReady?cloudDate():new Date())}
+function monthKey(d){if(!d)return currentDateISO().slice(0,7);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
+function currentYearKey(){return currentDateISO().slice(0,4)}
+function previousMonthKey(k){let [y,m]=k.split('-').map(Number);m--;if(m<1){m=12;y--}return `${y}-${String(m).padStart(2,'0')}`}
+function monthLabel(k){const [y,m]=k.split('-').map(Number);return `${MONTHS[m-1]} ${y}`}
+function availableYears(){const end=Number(currentYearKey()),out=[];for(let y=PLANNER_START_YEAR;y<=end;y++)out.push(y);return out}
+function monthsForYear(year){year=Number(year);const cy=Number(currentYearKey()),cm=Number(monthKey().slice(5));if(year<PLANNER_START_YEAR||year>cy)return[];const first=year===PLANNER_START_YEAR?PLANNER_START_MONTH:1;const last=year===cy?cm:12;const out=[];for(let m=first;m<=last;m++)out.push(m);return out}
+function isAvailablePeriod(k){return /^\d{4}-\d{2}$/.test(String(k||''))&&String(k)>=PLANNER_START_KEY&&String(k)<=monthKey()}
+function clampAvailablePeriod(k){if(!/^\d{4}-\d{2}$/.test(String(k||'')))return monthKey();if(String(k)<PLANNER_START_KEY)return PLANNER_START_KEY;if(String(k)>monthKey())return monthKey();return String(k)}
+function setupMonthInput(id,desired){const el=document.getElementById(id);const value=clampAvailablePeriod(desired||monthKey());if(!el)return value;el.dataset.value=value;el.value=monthLabel(value);return value}
+function monthInputValue(id,fallback=monthKey()){const el=document.getElementById(id);if(!el)return clampAvailablePeriod(fallback);const v=clampAvailablePeriod(el.dataset.value||fallback);el.dataset.value=v;el.value=monthLabel(v);return v}
+function normalizeManualDate(raw){const s=String(raw||'').trim();let y,m,d,match;if(match=s.match(/^(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})$/)){y=+match[1];m=+match[2];d=+match[3]}else if(match=s.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/)){d=+match[1];m=+match[2];y=+match[3]}else return '';const dt=new Date(y,m-1,d);if(dt.getFullYear()!==y||dt.getMonth()!==m-1||dt.getDate()!==d)return '';return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`}
+function pairPeriod(yearId,monthId,fallback=monthKey()){const y=document.getElementById(yearId),m=document.getElementById(monthId);if(!y||!m)return clampAvailablePeriod(fallback);const key=`${y.value}-${String(m.value).padStart(2,'0')}`;return isAvailablePeriod(key)?key:clampAvailablePeriod(fallback)}
+function renderYearMonthPair(yearId,monthId,desired){const yEl=document.getElementById(yearId),mEl=document.getElementById(monthId);if(!yEl||!mEl)return clampAvailablePeriod(desired);desired=clampAvailablePeriod(desired);let [dy,dm]=desired.split('-').map(Number);const years=availableYears();if(!years.includes(dy))dy=years[years.length-1]||PLANNER_START_YEAR;yEl.innerHTML=years.map(y=>`<option value="${y}">${y} წელი</option>`).join('');yEl.value=String(dy);const months=monthsForYear(dy);if(!months.includes(dm)){dm=months.length?Math.min(Math.max(dm,months[0]),months[months.length-1]):PLANNER_START_MONTH}mEl.innerHTML=months.map(m=>`<option value="${m}">${MONTHS[m-1]}</option>`).join('');mEl.value=String(dm);return `${dy}-${String(dm).padStart(2,'0')}`}
+function syncYearMonthPair(yearId,monthId,fallback){const yEl=document.getElementById(yearId),mEl=document.getElementById(monthId);if(!yEl||!mEl)return clampAvailablePeriod(fallback);const year=Number(yEl.value)||new Date().getFullYear();const oldMonth=Number(mEl.value)||Number(String(fallback).slice(5,7))||1;const months=monthsForYear(year);const month=months.includes(oldMonth)?oldMonth:(months.length?Math.min(Math.max(oldMonth,months[0]),months[months.length-1]):PLANNER_START_MONTH);return renderYearMonthPair(yearId,monthId,`${year}-${String(month).padStart(2,'0')}`)}
+function allowedPreviousPeriod(k){const prev=previousMonthKey(clampAvailablePeriod(k));return isAvailablePeriod(prev)?prev:PLANNER_START_KEY}
+let miniPickerState={target:null,type:'month',year:PLANNER_START_YEAR,month:PLANNER_START_MONTH};
+function pickerYears(){return availableYears()}
+function pickerDateBounds(){return{min:`${PLANNER_START_KEY}-01`,max:currentDateISO()}}
+function pickerPeriodFromTarget(el){return clampAvailablePeriod(el?.dataset?.value||monthKey())}
+function pickerDateFromTarget(el){const n=normalizeManualDate(el?.value||'');if(n)return n;return currentDateISO()}
+function openMiniPicker(el,type){
+  if(!el)return;
+  miniPickerState.target=el;miniPickerState.type=type;
+  if(type==='date'){const d=pickerDateFromTarget(el),[y,m]=d.split('-').map(Number);miniPickerState.year=y;miniPickerState.month=m}
+  else{const p=pickerPeriodFromTarget(el),[y,m]=p.split('-').map(Number);miniPickerState.year=y;miniPickerState.month=m}
+  renderMiniPicker();positionMiniPicker(el);
+  const p=document.getElementById('miniPicker');p.classList.add('open');p.setAttribute('aria-hidden','false')
+}
+function closeMiniPicker(){const p=document.getElementById('miniPicker');p?.classList.remove('open');p?.setAttribute('aria-hidden','true');miniPickerState.target=null}
+function positionMiniPicker(el){const p=document.getElementById('miniPicker');if(!p||!el)return;const r=el.getBoundingClientRect();const w=286;let left=Math.min(r.left,window.innerWidth-w-12);left=Math.max(12,left);let top=r.bottom+7;if(top+360>window.innerHeight)top=Math.max(12,r.top-355);p.style.left=left+'px';p.style.top=top+'px'}
+function renderMiniPicker(){
+  const years=pickerYears(),yearEl=document.getElementById('miniPickerYear'),grid=document.getElementById('miniMonthGrid'),daysWrap=document.getElementById('miniDaysWrap'),title=document.getElementById('miniPickerTitle');
+  if(!years.includes(miniPickerState.year))miniPickerState.year=years[years.length-1]||PLANNER_START_YEAR;
+  yearEl.innerHTML=years.map(y=>`<option value="${y}">${y}</option>`).join('');yearEl.value=String(miniPickerState.year);
+  title.textContent=miniPickerState.type==='date'?'აირჩიე თარიღი':'აირჩიე თვე და წელი';
+  const allowed=monthsForYear(miniPickerState.year);
+  grid.innerHTML=MONTHS.map((name,i)=>{const m=i+1,disabled=!allowed.includes(m),active=m===miniPickerState.month;return `<button type="button" class="mini-month ${active?'active':''}" data-month="${m}" ${disabled?'disabled':''}>${name}</button>`}).join('');
+  grid.querySelectorAll('.mini-month:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>selectPickerMonth(Number(btn.dataset.month))));
+  daysWrap.style.display=miniPickerState.type==='date'?'block':'none';if(miniPickerState.type==='date')renderMiniDays()
+}
+function selectPickerMonth(m){
+  miniPickerState.month=m;
+  if(miniPickerState.type==='month'){
+    const key=`${miniPickerState.year}-${String(m).padStart(2,'0')}`;const el=miniPickerState.target;if(el){el.dataset.value=key;el.value=monthLabel(key);el.dispatchEvent(new Event('change',{bubbles:true}))}closeMiniPicker();return
+  }
+  renderMiniPicker()
+}
+function renderMiniDays(){
+  const box=document.getElementById('miniDays');if(!box)return;const y=miniPickerState.year,m=miniPickerState.month;const first=(new Date(y,m-1,1).getDay()+6)%7,total=new Date(y,m,0).getDate();const bounds=pickerDateBounds();const selected=normalizeManualDate(miniPickerState.target?.value||'');let html='';
+  for(let i=0;i<first;i++)html+='<button type="button" class="mini-day blank" disabled></button>';
+  for(let d=1;d<=total;d++){const iso=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`,disabled=iso<bounds.min||iso>bounds.max,isToday=iso===currentDateISO(),isSelected=iso===selected;html+=`<button type="button" class="mini-day ${isToday?'today':''} ${isSelected?'selected':''}" data-date="${iso}" ${disabled?'disabled':''}>${d}</button>`}
+  box.innerHTML=html;box.querySelectorAll('.mini-day[data-date]:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>selectPickerDate(btn.dataset.date)))
+}
+function selectPickerDate(iso){const el=miniPickerState.target;if(el){const [y,m,d]=iso.split('-');el.value=`${d}.${m}.${y}`;el.dataset.iso=iso;el.dispatchEvent(new Event('change',{bubbles:true}))}closeMiniPicker()}
+function initMiniPickers(){
+  document.querySelectorAll('[data-picker="month"]').forEach(el=>{el.addEventListener('click',()=>openMiniPicker(el,'month'));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMiniPicker(el,'month')}})});
+  const date=document.querySelector('[data-picker="date"]');if(date){date.addEventListener('click',()=>openMiniPicker(date,'date'));date.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMiniPicker(date,'date')}})}
+  document.getElementById('miniPickerYear')?.addEventListener('change',e=>{miniPickerState.year=Number(e.target.value);const allowed=monthsForYear(miniPickerState.year);if(!allowed.includes(miniPickerState.month))miniPickerState.month=allowed[allowed.length-1]||PLANNER_START_MONTH;renderMiniPicker()});
+  document.getElementById('miniPickerClose')?.addEventListener('click',closeMiniPicker);
+  document.addEventListener('mousedown',e=>{const p=document.getElementById('miniPicker');if(p?.classList.contains('open')&&!p.contains(e.target)&&e.target!==miniPickerState.target)closeMiniPicker()});
+  window.addEventListener('scroll',closeMiniPicker,true)
+}
+function money(v){return `${Math.round((Number(v)||0)*100)/100}ლ`}
+function cleanItems(items){if(!Array.isArray(items))return[];let changed=false;items.forEach(x=>{if(!x.id){x.id=Date.now()+Math.random();changed=true}if('priority' in x){delete x.priority;changed=true}});return items}
+
+function periodMap(key){let map=load(key,{});if(Array.isArray(map)){const p=key==='monthly'?monthKey():currentYearKey();map={[p]:cleanItems(map)};save(key,map)}if(!map||typeof map!=='object'||Array.isArray(map))map={};return map}
+function getDailyItems(){const today=currentDateISO();let box=load('todo',null);if(Array.isArray(box))box={date:today,items:cleanItems(box)};if(!box||typeof box!=='object'||box.date!==today||!Array.isArray(box.items)){box={date:today,items:[]};save('todo',box)}else{box.items=cleanItems(box.items)}return box.items}
+function setDailyItems(items){return save('todo',{date:currentDateISO(),items:cleanItems(items)})}
+function getTaskItems(key,period){if(key==='todo')return getDailyItems();const map=periodMap(key);const p=period||(key==='monthly'?selectedMonthlyPeriod:selectedYearlyPeriod);return Array.isArray(map[p])?map[p]:[]}
+function setTaskItems(key,items,period){if(key==='todo')return setDailyItems(items);const map=periodMap(key);const p=period||(key==='monthly'?selectedMonthlyPeriod:selectedYearlyPeriod);map[p]=cleanItems(items);return save(key,map)}
+
+function migratePeriodData(){
+  if(!hasStoredKey('todo')){const legacy=load('todoLegacy',[]);save('todo',{date:currentDateISO(),items:Array.isArray(legacy)?cleanItems(legacy):[]})}
+  if(!hasStoredKey('monthly')){const legacy=load('monthlyLegacy',[]);const map={};if(Array.isArray(legacy)&&legacy.length)map[monthKey()]=cleanItems(legacy);save('monthly',map)}
+  if(!hasStoredKey('yearly')){const legacy=load('yearlyLegacy',[]);const map={};if(Array.isArray(legacy)&&legacy.length)map[currentYearKey()]=cleanItems(legacy);save('yearly',map)}
+}
+function seed(){
+  migratePeriodData();
+  if(!hasStoredKey('cats'))save('cats',[]);
+  if(!hasStoredKey('events'))save('events',[]);
+  if(!hasStoredKey('finances'))save('finances',[]);
+  if(!hasStoredKey('notes')){const legacy=load('legacyNotes','');save('notes',legacy&&String(legacy).trim()?[{id:Date.now(),text:String(legacy),done:false,created:new Date().toISOString()}]:[])}else{const current=load('notes',[]);if(!Array.isArray(current)){save('notes',typeof current==='string'&&current.trim()?[{id:Date.now(),text:current.trim(),done:false,created:new Date().toISOString()}]:[])}}
+  getDailyItems();periodMap('monthly');periodMap('yearly');
+}
+
+function yearlyPeriods(){return availableYears().map(String).reverse()}
+function renderPeriodSelectors(){
+  selectedMonthlyPeriod=setupMonthInput('monthlyPeriod',selectedMonthlyPeriod);
+  const y=document.getElementById('yearlyPeriod');if(y){const arr=yearlyPeriods();if(!arr.includes(selectedYearlyPeriod))selectedYearlyPeriod=currentYearKey();y.innerHTML=arr.map(k=>`<option value="${k}">${k} წელი</option>`).join('');y.value=selectedYearlyPeriod}
+}
+function changeMonthlyPeriod(){selectedMonthlyPeriod=monthInputValue('monthlyPeriod',selectedMonthlyPeriod);renderTaskPage('monthly')}
+function setYearlyPeriod(v){selectedYearlyPeriod=String(v);renderTaskPage('yearly')}
+
+function showView(name){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-'+name)?.classList.add('active');document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.view===name));if(name==='dashboard')requestAnimationFrame(()=>renderDashboard());if(name==='calendar')renderCalendar();if(name==='notes')renderNotes();if(name==='finance')renderFinance();if(name==='monthly'){selectedMonthlyPeriod=monthKey();renderPeriodSelectors();renderTaskPage('monthly')}if(name==='yearly'){selectedYearlyPeriod=currentYearKey();renderPeriodSelectors();renderTaskPage('yearly')}}
+document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showView(a.dataset.view)}));
+function taskStats(){const todo=getTaskItems('todo'),monthly=getTaskItems('monthly',monthKey()),yearly=getTaskItems('yearly',currentYearKey());return{todo,monthly,yearly,todoPct:pct(todo),monthlyPct:pct(monthly),yearlyPct:pct(yearly),todoDone:doneCount(todo),monthlyDone:doneCount(monthly),yearlyDone:doneCount(yearly)}}
+function renderDashboard(){const s=taskStats();document.querySelectorAll('[data-summary]').forEach(card=>{const k=card.dataset.summary,items=s[k],p=s[k+'Pct'],d=s[k+'Done'];card.querySelector('[data-percent]').textContent=p+'%';card.querySelector('[data-count]').textContent=`${d} / ${items.length} შესრულებულია`});renderFinanceMonthOptions();const m=monthInputValue('dashboardFinancePeriod',monthKey());document.getElementById('dashboardMonthLabel').textContent=monthLabel(m);drawFinanceChart(m);renderGoalOverview()}
+function changeDashboardFinancePeriod(){monthInputValue('dashboardFinancePeriod',monthKey());renderDashboard()}
+function renderGoalOverview(){const yearly=getTaskItems('yearly',currentYearKey()),daily=getTaskItems('todo'),yp=pct(yearly),dp=pct(daily);const yd=document.getElementById('yearlyGoalDonut'),dd=document.getElementById('dailyGoalDonut');if(yd)yd.style.background=`conic-gradient(var(--blue) 0 ${yp}%,#eee8f0 ${yp}% 100%)`;if(dd)dd.style.background=`conic-gradient(var(--deepPurple) 0 ${dp}%,#eee8f0 ${dp}% 100%)`;const yt=document.getElementById('yearlyGoalPct'),dt=document.getElementById('dailyGoalPct');if(yt)yt.textContent=yp+'%';if(dt)dt.textContent=dp+'%'}
+function renderTaskPage(key){renderPeriodSelectors();const items=getTaskItems(key),list=document.getElementById(key+'List');if(!list)return;list.innerHTML=items.length?items.map(x=>`<div class="task ${x.done?'done':''}"><input class="task-check" type="checkbox" ${x.done?'checked':''} onchange="toggleTask('${key}',${Number(x.id)})"><div class="task-main"><div class="task-title">${esc(x.text)}</div></div><button class="icon-btn" onclick="removeTask('${key}',${Number(x.id)})">✕</button></div>`).join(''):'<div class="empty">სია ცარიელია — დაამატე ახალი ჩანაწერი.</div>';const d=doneCount(items),p=pct(items);document.getElementById(key+'Pct').textContent=p+'%';document.getElementById(key+'Count').textContent=`${d} / ${items.length} შესრულებულია`;if(key==='monthly'){const el=document.getElementById('monthlyProgressLabel');if(el)el.textContent=`${monthLabel(selectedMonthlyPeriod)} · თვიური პროგრესი`}if(key==='yearly'){const el=document.getElementById('yearlyProgressLabel');if(el)el.textContent=`${selectedYearlyPeriod} · წლიური პროგრესი`}}
+function addTask(key){const input=document.getElementById(key+'Input'),text=input?.value.trim();if(!text)return;const items=[...getTaskItems(key)],obj={id:Date.now(),text,done:false};items.unshift(obj);setTaskItems(key,items);input.value='';refreshAll()}
+function toggleTask(k,id){const a=[...getTaskItems(k)],x=a.find(y=>Number(y.id)===Number(id));if(x)x.done=!x.done;setTaskItems(k,a);refreshAll()}
+function removeTask(k,id){setTaskItems(k,getTaskItems(k).filter(x=>Number(x.id)!==Number(id)));refreshAll()}
+/* finance */
+function financeMonths(){const out=[];for(const y of availableYears())for(const m of monthsForYear(y))out.push(`${y}-${String(m).padStart(2,'0')}`);return out.sort().reverse()}
+function renderFinanceMonthOptions(){
+  setupMonthInput('financePeriod',monthInputValue('financePeriod',monthKey()));
+  setupMonthInput('dashboardFinancePeriod',monthInputValue('dashboardFinancePeriod',monthKey()));
+  const aCurrent=setupMonthInput('comparePeriodA',monthInputValue('comparePeriodA',monthKey()));
+  setupMonthInput('comparePeriodB',monthInputValue('comparePeriodB',allowedPreviousPeriod(aCurrent)));
+}
+function changeFinancePeriod(){monthInputValue('financePeriod',monthKey());renderFinance()}
+function changeComparePeriod(side){monthInputValue('comparePeriod'+side,side==='A'?monthKey():allowedPreviousPeriod(monthInputValue('comparePeriodA',monthKey())));renderFinanceComparison()}
+
+function financeTotals(m){financeCache=load('finances',[]);if(!Array.isArray(financeCache))financeCache=[];const rows=financeCache.filter(x=>String(x.date||'').slice(0,7)===m);let income=0,expense=0,saving=0;rows.forEach(x=>{const a=Number(x.amount)||0;if(x.type==='income')income+=a;else if(x.type==='saving')saving+=a;else expense+=a});return{rows,income,expense,saving}}
+function addFinanceEntry(){const type=document.getElementById('financeType').value,title=document.getElementById('financeTitle').value.trim(),amount=Number(document.getElementById('financeAmount').value),rawDate=document.getElementById('financeDate').value,date=normalizeManualDate(rawDate);if(!title||!rawDate||!amount||amount<=0)return alert('შეავსე დასახელება, თანხა და თარიღი.');if(!date)return alert('აირჩიე თარიღი კალენდრიდან.');const entryMonth=date.slice(0,7);if(!isAvailablePeriod(entryMonth)||date>currentDateISO())return alert('ეს თარიღი ჯერ არ არის ხელმისაწვდომი. პლანერი იწყება 2026 წლის ოქტომბრიდან და მომავალი პერიოდი იხსნება მხოლოდ მისი დადგომისას.');financeCache=load('finances',[]);if(!Array.isArray(financeCache))financeCache=[];financeCache.unshift({id:Date.now(),type,title,amount,date});save('finances',financeCache);financeCache=load('finances',[]);document.getElementById('financeTitle').value='';document.getElementById('financeAmount').value='';document.getElementById('financeDate').value='';document.getElementById('financeDate').dataset.iso='';setupMonthInput('financePeriod',entryMonth);setupMonthInput('dashboardFinancePeriod',entryMonth);renderFinance();renderDashboard()}
+function deleteFinanceEntry(id){financeCache=financeCache.filter(x=>Number(x.id)!==Number(id));save('finances',financeCache);renderFinance();renderDashboard()}
+function renderFinance(){financeCache=load('finances',[]);if(!Array.isArray(financeCache))financeCache=[];renderFinanceMonthOptions();const m=monthInputValue('financePeriod',monthKey()),t=financeTotals(m);document.getElementById('financeIncome').textContent=money(t.income);document.getElementById('financeExpenses').textContent=money(t.expense);document.getElementById('financeSavings').textContent=money(t.saving);document.getElementById('financeSavingsRate').textContent=`შემოსავლის ${t.income?Math.round(t.saving/t.income*100):0}%`;const labels={income:'შემოსავალი',expense:'ხარჯი',saving:'დანაზოგი'};const list=document.getElementById('financeList');list.innerHTML=t.rows.length?[...t.rows].sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(x=>`<div class="finance-row"><div><div class="finance-title">${esc(x.title)}</div><div class="finance-meta">${esc(x.date)} · ${labels[x.type]||'ხარჯი'}</div></div><div class="finance-amount ${x.type}">${x.type==='expense'?'-':'+'}${money(x.amount)}</div><button class="icon-btn" onclick="deleteFinanceEntry(${Number(x.id)})">✕</button></div>`).join(''):'<div class="empty">ამ თვის ჩანაწერები ჯერ არ არის.</div>';renderFinanceComparison()}
+function delta(a,b){if(b===0)return a===0?0:null;return(a-b)/Math.abs(b)*100}function paintDelta(id,a,b,goodUp){const el=document.getElementById(id),d=delta(a,b);el.className='compare-delta neutral';if(d===null){el.textContent='შედარება ვერ ითვლება';return}const r=Math.round(d*10)/10;el.textContent=`${r>0?'↑':r<0?'↓':'→'} ${Math.abs(r)}%`;el.classList.add(r===0?'neutral':(goodUp?r>0:r<0)?'good':'bad')}
+function renderFinanceComparison(){const a=monthInputValue('comparePeriodA',monthKey()),b=monthInputValue('comparePeriodB',allowedPreviousPeriod(a)),A=financeTotals(a),B=financeTotals(b);[['Income','income',true],['Expense','expense',false],['Saving','saving',true]].forEach(([cap,key,good])=>{document.getElementById('compare'+cap+'A').textContent=money(A[key]);document.getElementById('compare'+cap+'B').textContent=money(B[key]);paintDelta('compare'+cap+'Delta',A[key],B[key],good)})}
+function drawFinanceChart(m){const c=document.getElementById('financeChart');if(!c)return;const box=c.getBoundingClientRect();if(!box.width)return;const dpr=window.devicePixelRatio||1;c.width=box.width*dpr;c.height=box.height*dpr;const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);const t=financeTotals(m),vals=[t.income,t.expense,t.saving],labels=['შემოსავალი','ხარჯები','დანაზოგი'],colors=['#8FAE9C','#CFA0A6','#6F5A78'],ticks=[0,500,1000,2000,3000,4000,5000],w=box.width,h=box.height,p={l:56,r:14,t:18,b:32},gw=w-p.l-p.r,gh=h-p.t-p.b,step=gh/(ticks.length-1);ctx.clearRect(0,0,w,h);ctx.font='10px \"Noto Sans Georgian\", sans-serif';ctx.textBaseline='middle';ticks.forEach((v,i)=>{const y=p.t+gh-i*step;ctx.strokeStyle='#ECE7EF';ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke();ctx.fillStyle='#8A818D';ctx.textAlign='right';ctx.fillText(v+'ლ',p.l-8,y)});function valueY(v){v=Math.max(0,Math.min(Number(v)||0,5000));if(v<=ticks[0])return p.t+gh;for(let i=1;i<ticks.length;i++){if(v<=ticks[i]){const lo=ticks[i-1],hi=ticks[i],ratio=(v-lo)/(hi-lo);return(p.t+gh-(i-1)*step)-ratio*step}}return p.t}const slot=gw/3,bw=Math.min(64,slot*.38),baseY=p.t+gh;vals.forEach((v,i)=>{const x=p.l+slot*i+(slot-bw)/2,y=valueY(v),bh=Math.max(0,baseY-y);ctx.fillStyle=colors[i];ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,7);else ctx.rect(x,y,bw,bh);ctx.fill();ctx.fillStyle='#625967';ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.font='700 10px \"Noto Sans Georgian\", sans-serif';ctx.fillText(money(v),x+bw/2,Math.max(11,y-7));ctx.fillStyle='#7C7380';ctx.font='10px \"Noto Sans Georgian\", sans-serif';ctx.fillText(labels[i],x+bw/2,h-8)});ctx.textAlign='left';ctx.textBaseline='alphabetic'}
+/* calendar */
+function calendarMonthOptions(){const current=setupMonthInput('calendarPeriod',clampAvailablePeriod(monthKey(calCursor)));const[y,m]=current.split('-').map(Number);calCursor=new Date(y,m-1,1)}
+function changeCalendarPeriod(){const k=monthInputValue('calendarPeriod',monthKey(calCursor));const[y,m]=k.split('-').map(Number);calCursor=new Date(y,m-1,1);renderCalendar()}
+
+function catMap(){const m={};load('cats',[]).forEach(c=>m[c.id]=c);return m}function renderCalendar(){calendarMonthOptions();const grid=document.getElementById('calendarGrid');if(!grid)return;grid.innerHTML='';const start=(new Date(calCursor.getFullYear(),calCursor.getMonth(),1).getDay()+6)%7,days=new Date(calCursor.getFullYear(),calCursor.getMonth()+1,0).getDate(),events=load('events',[]),cats=catMap(),today=new Date();for(let i=0;i<start;i++){const e=document.createElement('div');e.className='day empty';grid.appendChild(e)}for(let d=1;d<=days;d++){const iso=`${calCursor.getFullYear()}-${String(calCursor.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,evs=events.filter(e=>e.date===iso),btn=document.createElement('button');btn.className='day';if(d===today.getDate()&&calCursor.getMonth()===today.getMonth()&&calCursor.getFullYear()===today.getFullYear())btn.classList.add('today');btn.innerHTML=`<div class="day-num">${d}</div>`+evs.slice(0,2).map(e=>`<div class="event-mini">${esc(e.title)}</div>`).join('');btn.onclick=()=>openEventModal(iso);grid.appendChild(btn)}}
+function openEventModal(date){selectedEventDate=date;document.getElementById('eventModalDateLabel').textContent=date;document.getElementById('eventTitle').value='';document.getElementById('eventNote').value='';renderOtherEvents();document.getElementById('eventModal').classList.add('open')}function closeEventModal(){document.getElementById('eventModal').classList.remove('open')}function saveEvent(){const title=document.getElementById('eventTitle').value.trim(),note=document.getElementById('eventNote').value.trim();if(!selectedEventDate||!title)return;const a=load('events',[]);a.push({id:Date.now(),date:selectedEventDate,title,note});save('events',a);renderCalendar();renderOtherEvents();document.getElementById('eventTitle').value='';document.getElementById('eventNote').value=''}function renderOtherEvents(){const box=document.getElementById('otherEvents'),items=load('events',[]).filter(e=>e.date===selectedEventDate),cats=catMap();box.innerHTML=items.length?items.map(e=>`<div class="other-event"><div style="display:flex;justify-content:space-between;gap:8px"><span>${esc(e.title)}</span><button class="icon-btn" onclick="deleteEvent(${Number(e.id)})">✕</button></div></div>`).join(''):'<div class="other-empty">ამ დღეს დამატებული სხვა ივენთები არ არის.</div>'}function deleteEvent(id){save('events',load('events',[]).filter(e=>Number(e.id)!==Number(id)));renderOtherEvents();renderCalendar()}
+/* notes */
+function getNotes(){let notes=load('notes',[]);if(Array.isArray(notes))return notes;if(typeof notes==='string'&&notes.trim()){notes=[{id:Date.now(),text:notes.trim(),done:false,created:new Date().toISOString()}];save('notes',notes);return notes}save('notes',[]);return[]}
+function renderNotes(){const notes=getNotes(),grid=document.getElementById('notesGrid');if(!grid)return;grid.innerHTML=notes.length?notes.map(n=>`<div class="note-card ${n.done?'done':''}"><div class="note-top"><input class="note-check" type="checkbox" ${n.done?'checked':''} onchange="toggleNote(${Number(n.id)})"><button class="icon-btn" onclick="deleteNote(${Number(n.id)})">✕</button></div><div class="note-text">${esc(n.text)}</div><div class="note-date">${n.created?new Date(n.created).toLocaleDateString('ka-GE'):''}</div></div>`).join(''):''}
+function toggleNoteComposer(force){const c=document.getElementById('noteComposer'),t=document.getElementById('noteText');if(!c||!t)return;const open=typeof force==='boolean'?force:!c.classList.contains('open');c.classList.toggle('open',open);if(open){t.disabled=false;requestAnimationFrame(()=>t.focus())}}
+function addNote(){const input=document.getElementById('noteText');if(!input)return;const text=input.value.trim();if(!text){input.focus();return}const notes=getNotes();notes.unshift({id:Date.now(),text,done:false,created:new Date().toISOString()});save('notes',notes);input.value='';toggleNoteComposer(true);renderNotes();requestAnimationFrame(()=>input.focus())}
+function toggleNote(id){const notes=getNotes(),n=notes.find(x=>Number(x.id)===Number(id));if(n)n.done=!n.done;save('notes',notes);renderNotes()}
+function deleteNote(id){save('notes',getNotes().filter(x=>Number(x.id)!==Number(id)));renderNotes()}
+function refreshAll(){renderPeriodSelectors();renderTaskPage('todo');renderTaskPage('monthly');renderTaskPage('yearly');renderFinanceMonthOptions();renderFinance();renderCalendar();renderNotes();renderDashboard()}
+async function init(){
+  try{await startCloud()}catch(e){document.getElementById("cloudGate").textContent=e.message;return}
+  document.getElementById("cloudGate").remove();
+  selectedMonthlyPeriod=monthKey();selectedYearlyPeriod=currentYearKey();
+  const available=storageAvailable();
+  setStorageStatus(available,available?'ავტომატურად ინახება':'შენახვა მიუწვდომელია');
+  seed();
+  financeCache=load('finances',[]);if(!Array.isArray(financeCache))financeCache=[];
+  document.querySelectorAll('.add-row input').forEach(inp=>inp.addEventListener('keydown',e=>{if(e.key==='Enter')addTask(inp.id.replace('Input',''))}));
+  document.getElementById('noteText')?.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')addNote()});
+  initMiniPickers();
+  if(document.fonts?.load){try{await document.fonts.load('16px \"Noto Sans Georgian\"');await document.fonts.ready}catch(e){}}
+  refreshAll();
+}
+window.addEventListener('beforeunload',e=>{if(pendingWrites.length){e.preventDefault();e.returnValue=''}});
+let lastCloudDay='';setInterval(()=>{if(!cloudReady)return;const day=currentDateISO();if(day!==lastCloudDay){lastCloudDay=day;refreshAll()}},30000);
+window.addEventListener('resize',()=>{clearTimeout(window.__rz);window.__rz=setTimeout(renderDashboard,100)});init();
+</script>
+</body></html>

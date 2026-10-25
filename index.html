@@ -422,7 +422,7 @@ let selectedYearlyPeriod=currentYearKey();
 // Only RAM holds the current view. All durable writes go to Supabase.
 let cloudData={}, cloudRevision=0, cloudReady=false, cloudNow=0, clockStarted=0;
 let pendingWrites=[], sending=false, writeFailed=false;
-const API_URL='https://YOUR_PROJECT_REF.supabase.co/functions/v1/nestra-api';
+const API_URL='https://rsykydlpuhgozsiligyx.supabase.co/functions/v1/nestra-api';
 const privateToken=new URLSearchParams(location.hash.slice(1)).get('key')||'';
 function storageAvailable(){return cloudReady}
 function setStorageStatus(ok,message){storageOK=ok;const box=document.getElementById('storageStatus'),txt=document.getElementById('storageStatusText');if(box)box.classList.toggle('error',!ok);if(txt)txt.textContent=message||(ok?'cloud-ში შენახულია':'შენახვა ვერ მოხერხდა')}

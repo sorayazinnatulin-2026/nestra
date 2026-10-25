@@ -416,7 +416,7 @@ let financeCache=[];
 let calCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1);
 let selectedEventDate='';
 let storageOK=true;
-let selectedMonthlyPeriod=monthKey();
+let selectedYearlyPeriod='';
 let selectedYearlyPeriod=currentYearKey();
 
 // Only RAM holds the current view. All durable writes go to Supabase.
